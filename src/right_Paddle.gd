@@ -2,10 +2,13 @@ extends Area2D
 
 @export var paddle_type = "right_paddle"
 
+const MIN_LIMIT_SCREEN_Y = -230
+const MAX_LIMIT_SCREEN_Y = 136
 const ZERO = 0
 const UP = -1
 const DOWN = 1
-var speed = 200
+
+var speed = 250
 var move_down_paddle_type
 var move_up_paddle_type
 
@@ -16,9 +19,9 @@ func _init():
 func _process(delta):
 	var direction = ZERO
 	
-	if (Input.is_action_pressed(move_up_paddle_type)):
+	if (Input.is_action_pressed(move_up_paddle_type) && position.y > MIN_LIMIT_SCREEN_Y):
 		direction = UP
-	if (Input.is_action_pressed(move_down_paddle_type)):
+	if (Input.is_action_pressed(move_down_paddle_type) && position.y < MAX_LIMIT_SCREEN_Y):
 		direction = DOWN
 		
 	position.y = position.y + direction * speed * delta
